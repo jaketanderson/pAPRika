@@ -395,7 +395,7 @@ class TLeap(object):
         self._waters_added_history = [0]
         self._write_save_lines = True
 
-    def build(self, clean_files: bool = True):
+    def build(self, clean_files: bool = True, ignore_warnings: bool = False):
         """
         Build the ``TLeap`` system.
 
@@ -403,6 +403,8 @@ class TLeap(object):
         ----------
         clean_files : bool, optional
             Whether to delete log files after completion.
+        ignore_warnings: bool, optional
+            Whether to ignore warnings from TLeap output.
         """
 
         log.debug("Running tleap.build() in {}".format(self.output_path))
@@ -427,7 +429,7 @@ class TLeap(object):
         # Either just write/run tleap, or do solvate
         if self.pbc_type is None:
             self.write_input()
-            self.run()
+            self.run(ignore_warnings)
         else:
             self.solvate()
 
@@ -597,7 +599,7 @@ NONBON
             f.write("desc {}\n".format(self.unit))
             f.write("quit\n")
 
-    def run(self):
+    def run(self, ignore_warnings: bool = False):
         """
         Execute ``TLeap``.
 
@@ -605,6 +607,8 @@ NONBON
         -------
         output : list
             The tleap stdout returned as a list.
+        ignore_warnings : bool
+            Whether to ignore warnings from TLeap.
         """
 
         self.check_for_leap_log()
@@ -618,18 +622,22 @@ NONBON
         )
         output = output.stdout.read().decode().splitlines()
 
-        self.grep_leap_log()
+        self.grep_leap_log(ignore_warnings)
         return output
 
-    def grep_leap_log(self):
+    def grep_leap_log(self, ignore_warnings: bool = False):
         """
         Check for a few keywords in the ``TLeap`` output.
         """
         try:
+            check_keywords = "ERROR|WARNING|Warning|duplicate|FATAL|Could|Fatal|Error"
+            if ignore_warnings:
+                check_keywords = "ERROR|FATAL|Could|Fatal"
+
             with open(self.output_path + "leap.log", "r") as file:
                 for line in file.readlines():
                     if re.search(
-                        "ERROR|WARNING|Warning|duplicate|FATAL|Could|Fatal|Error", line
+                        check_keywords, line
                     ):
                         log.warning(
                             "It appears there was a problem with solvation: check `leap.log`..."
