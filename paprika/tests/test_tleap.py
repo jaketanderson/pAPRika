@@ -16,7 +16,7 @@ from simtk.openmm import NonbondedForce
 from paprika.build.align import zalign
 from paprika.build.system import TLeap
 from paprika.build.system.utils import ANGSTROM_CUBED_TO_LITERS, PBCBox
-from paprika.utils import is_file_and_not_empty
+from paprika.utils.utils import is_file_and_not_empty
 
 logger = logging.getLogger(__name__)
 
@@ -426,7 +426,7 @@ def test_conversions(clean_files):
     sys.build()
 
     from paprika.build.system.utils import ConversionToolkit
-    from paprika.utils import is_file_and_not_empty
+    from paprika.utils.utils import is_file_and_not_empty
 
     # Gromacs ParmEd test
     sys.convert_to_gromacs(overwrite=True)

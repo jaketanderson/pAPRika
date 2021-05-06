@@ -7,7 +7,7 @@ import shutil
 
 import pytest
 
-from paprika.utils import is_file_and_not_empty, make_window_dirs, strip_prmtop
+from paprika.utils.utils import is_file_and_not_empty, make_window_dirs, strip_prmtop
 
 
 @pytest.fixture

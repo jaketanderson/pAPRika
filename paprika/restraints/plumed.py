@@ -6,7 +6,7 @@ from parmed.structure import Structure as ParmedStructureClass
 
 from paprika.build.dummy import extract_dummy_atoms
 from paprika.restraints.utils import get_bias_potential_type, parse_window
-from paprika.utils import get_key, return_parmed_structure
+from paprika.utils.utils import get_key, return_parmed_structure
 
 logger = logging.getLogger(__name__)
 

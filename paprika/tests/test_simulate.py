@@ -9,7 +9,7 @@ from paprika.restraints import amber
 from paprika.restraints.restraints import create_window_list
 from paprika.simulate import AMBER, GROMACS, NAMD
 from paprika.tests import addons
-from paprika.utils import parse_mden, parse_mdout
+from paprika.utils.utils import parse_mden, parse_mdout
 
 
 @pytest.fixture(scope="function", autouse=True)

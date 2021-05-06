@@ -8,6 +8,10 @@ from __future__ import absolute_import
 
 import logging
 
+from .utils.units import DEFAULT_PINT_REGISTRY
+
+unit = DEFAULT_PINT_REGISTRY
+
 from paprika.evaluator import Analyze
 
 # Handle versioneer

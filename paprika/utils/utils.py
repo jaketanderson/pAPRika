@@ -11,6 +11,32 @@ from parmed.structure import Structure as ParmedStructureClass
 logger = logging.getLogger(__name__)
 
 
+def get_data_filename(relative_path):
+    """Get the full path to one of the reference files in data.
+
+    In the source distribution, these files are in ``evaluator/data/``,
+    but on installation, they're moved to somewhere in the user's python
+    site-packages directory.
+
+    Parameters
+    ----------
+    relative_path : str
+        The relative path of the file to load.
+    """
+
+    from pkg_resources import resource_filename
+
+    fn = resource_filename("paprika", os.path.join("data", relative_path))
+
+    if not os.path.exists(fn):
+        raise ValueError(
+            "Sorry! %s does not exist. If you just added it, you'll have to re-install"
+            % fn
+        )
+
+    return fn
+
+
 def get_key(dct, value):
     """
     Get dictionary key given the value.
@@ -315,3 +341,12 @@ def is_file_and_not_empty(file_path):
     """
     # This function is copied from OpenFF-Evaluator
     return os.path.isfile(file_path) and (os.path.getsize(file_path) != 0)
+
+
+def is_number(s):
+    """Returns True if string is a number."""
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False

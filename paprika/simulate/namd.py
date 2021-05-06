@@ -8,7 +8,7 @@ from enum import Enum
 import numpy as np
 import parmed as pmd
 
-from paprika.utils import get_dict_without_keys
+from paprika.utils.utils import get_dict_without_keys
 
 from .simulation import Simulation
 

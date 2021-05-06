@@ -5,7 +5,7 @@ import numpy as np
 
 from paprika.restraints.plumed import Plumed
 from paprika.restraints.utils import get_bias_potential_type, parse_window
-from paprika.utils import get_key
+from paprika.utils.utils import get_key
 
 logger = logging.getLogger(__name__)
 

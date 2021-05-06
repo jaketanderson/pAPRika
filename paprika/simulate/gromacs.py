@@ -6,7 +6,7 @@ import subprocess as sp
 from collections import OrderedDict
 from enum import Enum
 
-from paprika.utils import get_dict_without_keys
+from paprika.utils.utils import get_dict_without_keys
 
 from .simulation import Simulation
 
