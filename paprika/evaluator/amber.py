@@ -93,7 +93,11 @@ def generate_gaff(
             )
 
             if return_names:
-                return residue_name, f"{output_name}.{gaff_version}.mol2", f"{output_name}.{gaff_version}.frcmod"
+                return (
+                    residue_name,
+                    f"{output_name}.{gaff_version}.mol2",
+                    f"{output_name}.{gaff_version}.frcmod",
+                )
 
     else:
         raise NotImplementedError()
